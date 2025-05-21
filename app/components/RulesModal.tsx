@@ -10,6 +10,36 @@ interface RulesModalProps {
   autoShow?: boolean;
 }
 
+const CrossMark = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" className={styles.inlineMark}>
+    <defs>
+      <linearGradient id="crossGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#FF4500" />
+        <stop offset="100%" stopColor="#FFA500" />
+      </linearGradient>
+    </defs>
+    <path
+      d="M18.3 5.71a.996.996 0 0 0-1.41 0L12 10.59 7.11 5.7A.996.996 0 1 0 5.7 7.11L10.59 12 5.7 16.89a.996.996 0 1 0 1.41 1.41L12 13.41l4.89 4.89a.996.996 0 1 0 1.41-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"
+      fill="url(#crossGradient)"
+    />
+  </svg>
+);
+
+const ZeroMark = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" className={styles.inlineMark}>
+    <defs>
+      <linearGradient id="zeroGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#00BFFF" />
+        <stop offset="100%" stopColor="#00FFFF" />
+      </linearGradient>
+    </defs>
+    <path
+      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+      fill="url(#zeroGradient)"
+    />
+  </svg>
+);
+
 const RulesModal: React.FC<RulesModalProps> = ({ isOpen, onClose, autoShow = true }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [showRulesButton, setShowRulesButton] = useState(false);
@@ -69,14 +99,21 @@ const RulesModal: React.FC<RulesModalProps> = ({ isOpen, onClose, autoShow = tru
           <div className={`${styles.modal} ${isVisible ? styles.visible : ''}`}>
             <button className={styles.closeButton} onClick={onClose}>×</button>
             
-            <h2 className={styles.title}>2 Players+ Mode Rules</h2>
+            <h2 className={styles.title}>
+              <div className={styles.titleMain}>2 PLAYERS+</div>
+              <div className={styles.titleSub}>RULES</div>
+            </h2>
             
             <div className={styles.content}>
               <ul className={styles.rulesList}>
                 <li className={styles.ruleItem}>
                   <span className={styles.ruleNumber}>1</span>
                   <span className={styles.ruleText}>
-                    Each player can only have 3 marks (X or O) on the board at a time
+                    Each player can only have 3 marks{' '}
+                    <span className={styles.inlineMarks}>
+                      (<CrossMark /> or <ZeroMark />)
+                    </span>
+                    {' '}on the board at a time
                   </span>
                 </li>
                 <li className={styles.ruleItem}>
