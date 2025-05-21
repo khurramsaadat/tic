@@ -5,6 +5,7 @@ import Image from 'next/image';
 import styles from './AdvancedGameBoard.module.css';
 import SoundManager from '../utils/SoundManager';
 import MuteButton from './MuteButton';
+import RulesModal from './RulesModal';
 
 interface AdvancedGameBoardProps {
   player1Name: string;
@@ -68,6 +69,16 @@ const getWinningLineType = (line: number[]): string => {
 };
 
 const AdvancedGameBoard: React.FC<AdvancedGameBoardProps> = ({ player1Name, player2Name, onGameEnd }) => {
+  const [isRulesOpen, setIsRulesOpen] = useState(true);
+  const [hasShownRules, setHasShownRules] = useState(false);
+
+  const handleRulesClose = useCallback(() => {
+    setIsRulesOpen(!isRulesOpen);
+    if (!hasShownRules) {
+      setHasShownRules(true);
+    }
+  }, [isRulesOpen, hasShownRules]);
+
   // Add effect to clear localStorage on hard refresh
   useEffect(() => {
     const clearAllGameData = () => {
@@ -263,6 +274,12 @@ const AdvancedGameBoard: React.FC<AdvancedGameBoardProps> = ({ player1Name, play
 
   return (
     <div className={styles.container}>
+      <RulesModal 
+        isOpen={isRulesOpen} 
+        onClose={handleRulesClose}
+        autoShow={!hasShownRules}
+      />
+      
       <div className={styles.scoreBoard}>
         <div className={styles.scoreContent}>
           <div className={`${styles.playerScore} ${isXNext && !gameEnded ? styles.activePlayer : ''}`}>

@@ -532,3 +532,26 @@ All notable changes to this project will be documented in this file.
   - puppeteer for social preview generation
   - sharp for image optimization
 - Added new npm script: generate-social
+
+## [2024-03-21] - Rules Modal Addition
+### Added
+- New RulesModal component for 2-players-plus mode
+  - Automatic display on game start
+  - Persistent rules button in bottom-right corner
+  - Responsive design with different animations for desktop/mobile
+  - Desktop: Slides in from top
+  - Mobile: Slides in from right
+  - Dismissible by clicking outside or close button
+  - Clear, concise explanation of game rules
+  - Added strategy tips section
+- New files:
+  - app/components/RulesModal.tsx
+  - app/components/RulesModal.module.css
+  - public/info-icon.svg
+
+### Technical Details
+- Implemented smooth animations using CSS transitions
+- Added backdrop blur effect for better readability
+- Responsive design breakpoints at 768px
+- Integrated with AdvancedGameBoard component
+- Added TypeScript interfaces for props
