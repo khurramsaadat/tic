@@ -1,0 +1,148 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 2rem;
+  margin-top: 2rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputGroup label {
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: linear-gradient(to right, var(--start-color), var(--end-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.inputGroup:nth-child(1) {
+  --start-color: #FF0000;
+  --end-color: #FF8C00;
+}
+
+.inputGroup:nth-child(2) {
+  --start-color: #0066FF;
+  --end-color: #00FFFF;
+}
+
+.inputGroup input {
+  padding: 1rem;
+  border: 2px solid;
+  border-image-slice: 1;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  background: rgba(0, 0, 0, 0.3);
+  color: #FFFFFF;
+  transition: all 0.3s ease;
+}
+
+.inputGroup:nth-child(1) input {
+  border-image-source: linear-gradient(to right, #FF0000, #FF8C00);
+}
+
+.inputGroup:nth-child(2) input {
+  border-image-source: linear-gradient(to right, #0066FF, #00FFFF);
+}
+
+.inputGroup input:focus {
+  outline: none;
+  box-shadow: 0 0 15px rgba(var(--glow-color), 0.5);
+}
+
+.inputGroup:nth-child(1) input:focus {
+  --glow-color: 255, 0, 0;
+}
+
+.inputGroup:nth-child(2) input:focus {
+  --glow-color: 0, 102, 255;
+}
+
+.button {
+  background: #FFD700;
+  color: #000000;
+  border: none;
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+}
+
+.button:disabled {
+  background: #666666;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.markIcon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0.5rem;
+  transform: translateY(-1px);
+}
+
+.inputGroup:nth-child(1) .markIcon {
+  filter: drop-shadow(0 0 4px rgba(255, 0, 0, 0.4));
+}
+
+.inputGroup:nth-child(2) .markIcon {
+  filter: drop-shadow(0 0 4px rgba(0, 102, 255, 0.4));
+}
+
+@media (max-width: 768px) {
+  .form {
+    padding: 1.5rem;
+  }
+
+  .inputGroup label {
+    font-size: 1.3rem;
+  }
+
+  .inputGroup input {
+    padding: 0.8rem;
+    font-size: 1.1rem;
+  }
+
+  .button {
+    font-size: 1.3rem;
+    padding: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .form {
+    padding: 1rem;
+  }
+
+  .inputGroup label {
+    font-size: 1.2rem;
+  }
+
+  .inputGroup input {
+    padding: 0.7rem;
+    font-size: 1rem;
+  }
+
+  .button {
+    font-size: 1.2rem;
+    padding: 0.7rem;
+  }
+} 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="crossGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF0000"/>
+      <stop offset="100%" style="stop-color:#FF8C00"/>
+    </linearGradient>
+  </defs>
+  <g stroke="url(#crossGradient)" stroke-width="12" stroke-linecap="round">
+    <line x1="30" y1="30" x2="90" y2="90">
+      <animate attributeName="x2" from="30" to="90" dur="0.2s" begin="0s" fill="freeze"/>
+      <animate attributeName="y2" from="30" to="90" dur="0.2s" begin="0s" fill="freeze"/>
+    </line>
+    <line x1="90" y1="30" x2="30" y2="90">
+      <animate attributeName="x2" from="90" to="30" dur="0.2s" begin="0.2s" fill="freeze"/>
+      <animate attributeName="y2" from="30" to="90" dur="0.2s" begin="0.2s" fill="freeze"/>
+    </line>
+  </g>
+</svg> 

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600" height="600" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="600" height="600" fill="#000000"/>
+  
+  <!-- Grid Lines -->
+  <line x1="200" y1="50" x2="200" y2="550" stroke="white" stroke-width="8"/>
+  <line x1="400" y1="50" x2="400" y2="550" stroke="white" stroke-width="8"/>
+  <line x1="50" y1="200" x2="550" y2="200" stroke="white" stroke-width="8"/>
+  <line x1="50" y1="400" x2="550" y2="400" stroke="white" stroke-width="8"/>
+  
+  <!-- X's (Red) -->
+  <g stroke="#FF0000" stroke-width="8">
+    <!-- Center top X -->
+    <line x1="280" y1="80" x2="320" y2="120" stroke-linecap="round"/>
+    <line x1="320" y1="80" x2="280" y2="120" stroke-linecap="round"/>
+    
+    <!-- Left middle X -->
+    <line x1="80" y1="280" x2="120" y2="320" stroke-linecap="round"/>
+    <line x1="120" y1="280" x2="80" y2="320" stroke-linecap="round"/>
+    
+    <!-- Bottom row X's -->
+    <line x1="80" y1="480" x2="120" y2="520" stroke-linecap="round"/>
+    <line x1="120" y1="480" x2="80" y2="520" stroke-linecap="round"/>
+    
+    <line x1="280" y1="480" x2="320" y2="520" stroke-linecap="round"/>
+    <line x1="320" y1="480" x2="280" y2="520" stroke-linecap="round"/>
+    
+    <line x1="480" y1="480" x2="520" y2="520" stroke-linecap="round"/>
+    <line x1="520" y1="480" x2="480" y2="520" stroke-linecap="round"/>
+  </g>
+  
+  <!-- O's (Blue) -->
+  <g stroke="#0000FF" stroke-width="8" fill="none">
+    <!-- Top row O's -->
+    <circle cx="100" cy="100" r="30"/>
+    <circle cx="500" cy="100" r="30"/>
+    
+    <!-- Center O -->
+    <circle cx="300" cy="300" r="30"/>
+    
+    <!-- Right middle O -->
+    <circle cx="500" cy="300" r="30"/>
+  </g>
+</svg> 
+ 

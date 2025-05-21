@@ -1,0 +1,60 @@
+.muteButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: #FFD700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  margin-left: 1rem;
+  width: 40px;
+  height: 40px;
+}
+
+.muteButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+}
+
+.muteButton.muted {
+  color: #666666;
+}
+
+.muteButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.5);
+}
+
+.muteButton svg {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+}
+
+.muteButton:hover svg {
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .muteButton {
+    width: 36px;
+    height: 36px;
+    margin-left: 0.8rem;
+  }
+
+  .muteButton svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .muteButton {
+    width: 32px;
+    height: 32px;
+    margin-left: 0.6rem;
+  }
+} 

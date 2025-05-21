@@ -1,0 +1,323 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #FFD700;
+  z-index: 1000;
+  border-bottom: 2px solid #000000;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.homeLink {
+  display: flex;
+  align-items: center;
+  color: #000000;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.homeIcon {
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.homeLink:hover .homeIcon {
+  transform: scale(1.2);
+  color: #FF0000;
+}
+
+.logo a {
+  text-decoration: none;
+}
+
+.logoText {
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: -0.5px;
+  display: flex;
+  gap: 0;
+  transition: gap 0.3s ease;
+}
+
+.logo a:hover .logoText {
+  gap: 8px;
+}
+
+.black {
+  color: #000000;
+}
+
+.grey {
+  color: #666666;
+}
+
+.logo img {
+  transition: transform 0.3s ease;
+}
+
+.logo:hover img {
+  transform: rotate(360deg);
+}
+
+.menuButton {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 1001;
+}
+
+.menuIcon {
+  width: 24px;
+  height: 20px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.menuIcon span {
+  display: block;
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background-color: #000000;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.menuIcon span:first-child {
+  top: 0;
+}
+
+.menuIcon span:nth-child(2) {
+  top: 9px;
+}
+
+.menuIcon span:last-child {
+  top: 18px;
+}
+
+.menuIcon.open span:first-child {
+  transform: rotate(45deg);
+  top: 9px;
+}
+
+.menuIcon.open span:nth-child(2) {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.menuIcon.open span:last-child {
+  transform: rotate(-45deg);
+  top: 9px;
+}
+
+.navLinks {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.navLinks a {
+  color: #000000;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  position: relative;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navLinks a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #000000;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.navLinks a:hover::after {
+  width: 80%;
+}
+
+.navLinks a:hover .navIcon {
+  transform: scale(1.2);
+}
+
+.navLinks a[aria-current="page"] {
+  font-weight: 700;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.navLinks a[aria-current="page"]::after {
+  width: 80%;
+}
+
+.navLinks a[aria-current="page"] .navIcon {
+  color: #FF0000;
+}
+
+/* Remove background and underline for 2 PLAYERS link when on home page */
+.navbar[data-page="/"] .navLinks a[href="/2-players"] {
+  background-color: transparent;
+}
+
+.navbar[data-page="/"] .navLinks a[href="/2-players"]::after {
+  width: 0;
+}
+
+.navIcon {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.navLinks a:hover .navIcon {
+  transform: scale(1.2);
+}
+
+.navLinks a[aria-current="page"] .navIcon {
+  color: #FF0000;
+}
+
+/* Add an overlay when mobile menu is open */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+}
+
+.overlay.active {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .menuButton {
+    display: block;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .navLinks {
+    position: fixed;
+    top: 80px;
+    right: -100%;
+    height: 60vh;
+    width: 70%;
+    max-width: 300px;
+    background-color: rgba(255, 215, 0, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 2rem;
+    transition: right 0.3s ease;
+    border: 1px solid #FFFFFF;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    margin: auto 0;
+    border-radius: 20px 0 0 20px;
+  }
+
+  .navLinks.active {
+    right: 0;
+  }
+
+  .navLinks a {
+    font-size: 1.3rem;
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem;
+    border: 1px solid transparent;
+    justify-content: center;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    color: white;
+    text-shadow: 1px 1px 2px #000000;
+  }
+
+  .navLinks a:last-child {
+    border-bottom: none;
+  }
+
+  .navLinks a::after {
+    display: none;
+  }
+
+  .navLinks a:hover,
+  .navLinks a[aria-current="page"] {
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.5);
+    font-weight: 700;
+    transform: translateX(10px);
+    text-shadow: 2px 2px 3px #000000,
+                 0 0 10px rgba(255, 255, 255, 0.3);
+  }
+
+  .navIcon {
+    font-size: 1.8rem;
+    color: white;
+    filter: drop-shadow(1px 1px 1px #000000);
+  }
+
+  .navLinks a:hover .navIcon,
+  .navLinks a[aria-current="page"] .navIcon {
+    transform: scale(1.2);
+    color: white;
+    filter: drop-shadow(2px 2px 2px #000000)
+           drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+  }
+
+  .navLinks a[aria-current="page"]::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 70%;
+    background-color: white;
+    border-radius: 0 2px 2px 0;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+
+  .overlay.active {
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+  }
+} 
