@@ -64,9 +64,11 @@ export class QLearning {
     }
 
     // Load Q-table from localStorage if it exists
-    const savedQTable = localStorage.getItem(`qTable_${difficulty}`);
-    if (savedQTable) {
-      this.qTable = JSON.parse(savedQTable);
+    if (typeof window !== 'undefined') {
+      const savedQTable = localStorage.getItem(`qTable_${difficulty}`);
+      if (savedQTable) {
+        this.qTable = JSON.parse(savedQTable);
+      }
     }
   }
 
@@ -452,7 +454,7 @@ export class QLearning {
     const newStateKey = this.getStateKey(newState);
     const availableActions = this.getAvailableActions(newState);
 
-    // Initialize Q-values if needed
+    // Initialize Q-values if they don't exist
     if (!this.qTable[oldStateKey]) {
       this.qTable[oldStateKey] = {};
     }
@@ -460,38 +462,26 @@ export class QLearning {
       this.qTable[oldStateKey][action] = 0;
     }
 
-    // Enhanced reward based on state evaluation
-    const stateValue = this.evaluateState(oldState, action);
-    const adjustedReward = reward + (stateValue / 100);
-
-    // Q-learning update formula with symmetric state consideration
+    // Q-learning update rule
+    const maxQValue = this.getMaxQValue(newStateKey, availableActions);
     const oldQValue = this.qTable[oldStateKey][action];
-    const maxFutureQValue = this.getMaxQValue(newStateKey, availableActions);
-    const newQValue = oldQValue + this.learningRate * (
-      adjustedReward + this.discountFactor * maxFutureQValue - oldQValue
-    );
-
+    const newQValue = oldQValue + this.learningRate * (reward + this.discountFactor * maxQValue - oldQValue);
     this.qTable[oldStateKey][action] = newQValue;
 
-    // Update symmetric states
-    const symmetricStates = this.getSymmetricStates(oldState);
-    symmetricStates.forEach(symmetricState => {
-      if (symmetricState !== oldStateKey) {
-        if (!this.qTable[symmetricState]) {
-          this.qTable[symmetricState] = {};
-        }
-        this.qTable[symmetricState][action] = newQValue;
-      }
-    });
-
-    // Update exploration rate
+    // Decay exploration rate
     this.explorationRate = Math.max(
       this.minExplorationRate,
-      this.explorationRate - this.explorationDecay
+      this.explorationRate * (1 - this.explorationDecay)
     );
 
     // Save Q-table to localStorage
-    localStorage.setItem(`qTable_${this.difficulty}`, JSON.stringify(this.qTable));
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem(`qTable_${this.difficulty}`, JSON.stringify(this.qTable));
+      } catch (error) {
+        console.warn('Failed to save Q-table to localStorage:', error);
+      }
+    }
   }
 
   private getMaxQValue(state: StateKey, availableActions: Action[]): number {
@@ -517,21 +507,12 @@ export class QLearning {
 
   reset(): void {
     this.qTable = {};
-    
-    // Reset exploration rate to initial value based on difficulty
-    switch (this.difficulty) {
-      case 'easy':
-        this.explorationRate = 0.35;
-        break;
-      case 'medium':
-        this.explorationRate = 0.25;
-        break;
-      case 'hard':
-        this.explorationRate = 0.1;
-        break;
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.removeItem(`qTable_${this.difficulty}`);
+      } catch (error) {
+        console.warn('Failed to remove Q-table from localStorage:', error);
+      }
     }
-
-    // Clear localStorage
-    localStorage.removeItem(`qTable_${this.difficulty}`);
   }
 } 
