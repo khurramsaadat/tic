@@ -258,15 +258,16 @@ const AIGameBoard: React.FC<AIGameBoardProps> = ({
         {getStatusMessage()}
       </div>
 
-      {gameEnded && (
+      <div className={styles.controls}>
         <button 
           className={`${styles.newGameButton} ${gameState === 'won' ? styles.winnerButton : ''}`}
           onClick={startNewGame}
+          disabled={!gameEnded}
           aria-label="Start a new game"
         >
-          Start New Game
+          New Game
         </button>
-      )}
+      </div>
     </div>
   );
 };

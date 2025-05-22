@@ -198,20 +198,49 @@ All notable changes to this project will be documented in this file.
 ## [0.4.0] - 2024-03-19
 
 ### Added
-- New "2 Players+" game mode with special rules
-  - Each player can only have three marks
-  - Placing a fourth mark removes the oldest mark
-- Added "2 Players+" link to navigation menu
-- Added "2 Players+" button to hero section
-- Added "2 Players+" link to footer navigation
-- Gradient color effects for X and O symbols
-- Red-to-orange gradient for X symbol
-- Blue-to-cyan gradient for O symbol
+- New AI Learning mode with adaptive gameplay
+  - DifficultySelector component with Easy, Medium, and Hard levels
+  - Interactive difficulty selection UI with descriptions
+  - Game board component with gradient-styled X/O marks
+  - AI thinking indicator with animations
+  - Q-learning implementation with difficulty-based parameters:
+    - Easy: Slower learning, more exploration
+    - Medium: Balanced learning and exploration
+    - Hard: Fast learning, less exploration
+  - AI Stats display showing:
+    - Real-time exploration rate with progress bar
+    - Number of states learned
+    - Total Q-values learned
+  - Reset functionality with confirmation dialog
+  - Persistent learning through localStorage
+  - Reward system for game outcomes
+  - Responsive design for all screen sizes
+  - Winner announcements and draw detection
+  - Variable AI response times based on difficulty
+  - Consistent yellow theme styling
+  - Mobile-responsive layout
+- AI Learning route and page component
+- Navigation link in Navbar with brain icon
+- Navigation link in Footer
+- Basic page layout and styling for AI Learning mode
 
 ### Changed
-- Enhanced SVG animations for smoother transitions
-- Updated stroke styles with gradient colors
-- Improved visual appeal of game symbols 
+- Updated navigation order to include AI Learning mode
+- Enhanced mobile responsiveness for new components
+- Improved button interactions with hover effects
+- Added accessibility attributes for better UX
+- Enhanced visual feedback during gameplay
+
+### Technical
+- Implemented TypeScript interfaces for game components
+- Added state management for game progression
+- Implemented Q-learning algorithm with:
+  - Configurable learning parameters
+  - Exploration vs exploitation balance
+  - State-action value tracking
+  - Reward-based learning updates
+  - Performance statistics tracking
+  - Data persistence and reset capabilities
 
 ## [0.4.1] - 2024-03-19
 
@@ -555,3 +584,60 @@ All notable changes to this project will be documented in this file.
 - Responsive design breakpoints at 768px
 - Integrated with AdvancedGameBoard component
 - Added TypeScript interfaces for props
+
+## [2024-03-19]
+
+### Fixed
+- Added winning streak animation to 2-players mode
+  - Fixed animation implementation in `TraditionalGameBoard.tsx`
+  - Wrapped Image component in div to properly apply animation styles
+  - Animation now shows correctly for horizontal, vertical, and diagonal wins
+  - Matches the behavior in 2-players-plus mode
+
+### Project Structure
+```
+tic-tac-toe/
+├── .next/
+│   ├── cache/
+│   ├── server/
+│   ├── static/
+│   └── types/
+├── app/
+│   ├── 2-players/
+│   ├── 2-players-plus/
+│   ├── about/
+│   ├── ai-learning/
+│   │   ├── components/
+│   │   └── utils/
+│   ├── components/
+│   ├── generate-images/
+│   ├── instructions/
+│   ├── play-with-system/
+│   └── utils/
+├── public/
+│   ├── images/
+│   └── sounds/
+├── scripts/
+├── .gitignore
+├── CHANGELOG.md
+├── eslint.config.mjs
+├── LICENSE
+├── netlify.toml
+├── next-env.d.ts
+├── next.config.mjs
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── README.md
+└── tsconfig.json
+```
+
+### Modified Files
+- `app/components/TraditionalGameBoard.tsx`
+  - Added wrapper div for winning streak animation
+  - Properly configured animation classes and data attributes
+
+### Technical Details
+- Animation uses CSS transforms and keyframes for smooth transitions
+- Supports all winning patterns (horizontal, vertical, diagonal)
+- Maintains consistent styling with other game modes

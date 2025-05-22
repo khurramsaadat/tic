@@ -10,8 +10,36 @@
   position: relative;
 }
 
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  width: 100%;
+  max-width: 600px;
+  font-size: 1.2rem;
+  color: #666;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 0 auto;
+}
+
 @media (max-width: 768px) {
   .container {
+    padding: 1rem;
+  }
+
+  .loading {
+    min-height: 300px;
+    font-size: 1rem;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .loading {
+    min-height: 250px;
     padding: 1rem;
   }
 } 

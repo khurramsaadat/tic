@@ -1,3 +1,10 @@
+/*
+ * BACKUP FILE - DO NOT DELETE YET
+ * This file contains the original home page styles before migrating to the Hero component.
+ * Kept as backup until the new Hero component implementation is fully tested and stable.
+ * Date: 2024-03-19
+ */
+
 .main {
   display: flex;
   flex-direction: column;

@@ -1,15 +1,24 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import PlayerForm from '@/app/components/PlayerForm';
 import styles from './page.module.css';
 
+// Loading component for the game board
+const LoadingGameBoard = () => (
+  <div className={styles.loading}>
+    Loading advanced game board...
+  </div>
+);
+
+// Dynamic import with loading component
 const AdvancedGameBoard = dynamic(() => import('@/app/components/AdvancedGameBoard'), {
   ssr: false,
+  loading: () => <LoadingGameBoard />
 });
 
-export default function MultiplayerPage() {
+export default function TwoPlayersPlusPage() {
   const [player1Name, setPlayer1Name] = useState('');
   const [player2Name, setPlayer2Name] = useState('');
   const [gameStarted, setGameStarted] = useState(false);
@@ -31,12 +40,14 @@ export default function MultiplayerPage() {
       {!gameStarted ? (
         <PlayerForm onStart={handleStartGame} />
       ) : (
-        <AdvancedGameBoard
-          key={gameKey}
-          player1Name={player1Name}
-          player2Name={player2Name}
-          onGameEnd={handleGameEnd}
-        />
+        <Suspense fallback={<LoadingGameBoard />}>
+          <AdvancedGameBoard
+            key={gameKey}
+            player1Name={player1Name}
+            player2Name={player2Name}
+            onGameEnd={handleGameEnd}
+          />
+        </Suspense>
       )}
     </main>
   );

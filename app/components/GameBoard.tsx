@@ -6,7 +6,7 @@ import styles from './GameBoard.module.css';
 import SoundManager from '../utils/SoundManager';
 import MuteButton from './MuteButton';
 
-interface GameBoardProps {
+export interface GameBoardProps {
   player1Name: string;
   player2Name: string;
   onGameEnd?: (winner: string | null) => void;
@@ -76,6 +76,7 @@ const getWinningLineType = (line: number[]): string => {
 const gameReducer = (state: GameState, action: GameAction): GameState => {
   switch (action.type) {
     case 'MAKE_MOVE': {
+      // Traditional rules: Can only place on empty squares and game must not be over
       if (state.board[action.index] || state.gameEnded) {
         return state;
       }
@@ -88,7 +89,6 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
       const isDraw = !winner && !newBoard.includes(null);
 
       if (winner) {
-        console.log('Winner detected:', winner);
         const winnerName = winner === 'X' ? action.player1Name : action.player2Name;
         return {
           ...state,
@@ -105,7 +105,6 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
       }
 
       if (isDraw) {
-        console.log('Draw detected');
         return {
           ...state,
           board: newBoard,
@@ -150,7 +149,7 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
   }
 };
 
-const GameBoard: React.FC<GameBoardProps> = ({ player1Name, player2Name, onGameEnd }) => {
+const GameBoard = ({ player1Name, player2Name, onGameEnd }: GameBoardProps) => {
   // Add effect to clear localStorage on hard refresh
   useEffect(() => {
     const clearScores = () => {
@@ -182,7 +181,6 @@ const GameBoard: React.FC<GameBoardProps> = ({ player1Name, player2Name, onGameE
     selectedSquare: -1
   });
 
-  const currentPlayer = state.isXNext ? player1Name : player2Name;
   const [currentWinner] = calculateWinner(state.board);
 
   useEffect(() => {
@@ -193,29 +191,6 @@ const GameBoard: React.FC<GameBoardProps> = ({ player1Name, player2Name, onGameE
       return () => clearTimeout(timer);
     }
   }, [state.scoreUpdated]);
-
-  // Add sound effects for game state changes
-  useEffect(() => {
-    const soundManager = SoundManager.getInstance();
-    
-    if (state.gameStatus === 'won') {
-      soundManager.playSound('win');
-    } else if (state.gameStatus === 'draw') {
-      soundManager.playSound('draw');
-    }
-  }, [state.gameStatus]);
-
-  const makeMove = useCallback((index: number) => {
-    const soundManager = SoundManager.getInstance();
-    
-    if (state.board[index] || state.gameEnded) {
-      soundManager.playSound('invalid');
-      return;
-    }
-
-    soundManager.playSound('place');
-    dispatch({ type: 'MAKE_MOVE', index, player1Name, player2Name });
-  }, [state.board, state.gameEnded, player1Name, player2Name]);
 
   const getStatusMessage = useCallback(() => {
     if (state.gameStatus === 'won') {
@@ -236,99 +211,117 @@ const GameBoard: React.FC<GameBoardProps> = ({ player1Name, player2Name, onGameE
       return (
         <div className={styles.winnerInfo}>
           <div className={styles.winnerDisplay}>
-            <div className={styles.winnerTitle}>Game Draw!</div>
-            <div className={styles.winnerName}>Well played, both!</div>
+            <div className={styles.winnerTitle}>GAME DRAW!</div>
+            <div className={styles.winnerName}>Well played!</div>
           </div>
         </div>
       );
     }
 
-    return null;
-  }, [state.gameStatus, currentWinner, player1Name, player2Name]);
+    return (
+      <div className={styles.gameInfo}>
+        <div className={styles.currentPlayer}>
+          {state.isXNext ? player1Name : player2Name}'s Turn{' '}
+          <span className={styles.turnSymbol}>
+            <Image
+              src={`/${state.isXNext ? 'cross' : 'zero'}.svg`}
+              alt={state.isXNext ? 'X' : 'O'}
+              width={24}
+              height={24}
+              priority
+            />
+          </span>
+        </div>
+      </div>
+    );
+  }, [state.gameStatus, state.isXNext, currentWinner, player1Name, player2Name]);
+
+  const makeMove = useCallback((position: number) => {
+    if (state.gameEnded || state.board[position]) {
+      SoundManager.getInstance().playSound('invalid');
+      return;
+    }
+
+    dispatch({ 
+      type: 'MAKE_MOVE', 
+      index: position,
+      player1Name,
+      player2Name
+    });
+    SoundManager.getInstance().playSound('place');
+  }, [state.gameEnded, state.board, player1Name, player2Name]);
+
+  const startNewGame = useCallback(() => {
+    dispatch({ type: 'START_NEW_GAME' });
+  }, []);
+
+  const handleSquareClick = useCallback((position: number) => {
+    makeMove(position);
+  }, [makeMove]);
 
   return (
     <div className={styles.container}>
       <div className={styles.scoreBoard}>
-        <div className={styles.scoreContent}>
-          <div className={`${styles.playerScore} ${currentWinner === 'X' ? styles.winningPlayer : ''}`}>
-            <span className={styles.playerName}>{player1Name}</span>
-            <span className={`${styles.score} ${state.scoreUpdated === player1Name ? styles.scoreUpdated : ''}`}>
-              {state.scores[player1Name]}
-            </span>
-          </div>
-          <div className={`${styles.playerScore} ${currentWinner === 'O' ? styles.winningPlayer : ''}`}>
-            <span className={styles.playerName}>{player2Name}</span>
-            <span className={`${styles.score} ${state.scoreUpdated === player2Name ? styles.scoreUpdated : ''}`}>
-              {state.scores[player2Name]}
-            </span>
-          </div>
+        <div className={`${styles.playerScore} ${currentWinner === 'X' ? styles.winningPlayer : ''}`}>
+          <span className={styles.playerName}>{player1Name}</span>
+          <span className={`${styles.score} ${state.scoreUpdated === player1Name ? styles.scoreUpdated : ''}`}>
+            {state.scores[player1Name]}
+          </span>
         </div>
+        <div className={`${styles.playerScore} ${currentWinner === 'O' ? styles.winningPlayer : ''}`}>
+          <span className={styles.playerName}>{player2Name}</span>
+          <span className={`${styles.score} ${state.scoreUpdated === player2Name ? styles.scoreUpdated : ''}`}>
+            {state.scores[player2Name]}
+          </span>
+        </div>
+      </div>
+
+      {getStatusMessage()}
+
+      <div className={styles.board}>
+        {state.winningLine && (
+          <div 
+            className={`${styles.line} ${styles[getWinningLineType(state.winningLine)]}`}
+            style={{
+              top: state.winningLine[0] <= 2 ? `calc(${Math.floor(state.winningLine[0] / 3) * 33.33}% + 45px)` :
+                    state.winningLine[0] <= 5 ? `calc(${Math.floor(state.winningLine[0] / 3) * 33.33}% + 45px)` :
+                    `calc(${Math.floor(state.winningLine[0] / 3) * 33.33}% + 45px)`
+            }}
+          />
+        )}
+        {state.board.map((square, i) => (
+          <button
+            key={i}
+            className={`${styles.square} ${state.winningLine?.includes(i) ? styles.winning : ''}`}
+            onClick={() => handleSquareClick(i)}
+            disabled={Boolean(square) || state.gameEnded}
+          >
+            {square && (
+              <Image
+                src={`/${square === 'X' ? 'cross' : 'zero'}.svg`}
+                alt={square}
+                width={60}
+                height={60}
+                className={`${styles.mark} ${square === 'X' ? styles.markX : styles.markO}`}
+                priority
+              />
+            )}
+          </button>
+        ))}
+      </div>
+
+      <div className={styles.controls}>
+        <button
+          className={styles.button}
+          onClick={startNewGame}
+          disabled={!state.gameEnded}
+        >
+          New Game
+        </button>
         <MuteButton />
       </div>
-      
-      <div className={styles.boardWrapper}>
-        <Image 
-          src="/grid.svg" 
-          alt="Game Grid" 
-          width={300} 
-          height={300} 
-          className={styles.gridImage}
-          priority
-        />
-        <div className={styles.board} role="grid" aria-label="Tic-tac-toe game board">
-          {state.board.map((square, index) => (
-            <button
-              key={index}
-              className={`${styles.square} ${
-                state.selectedSquare === index ? styles.selected : ''
-              } ${state.winningLine?.includes(index) ? styles.winning : ''}`}
-              onClick={() => makeMove(index)}
-              onMouseEnter={() => !state.gameEnded && dispatch({ type: 'SET_SELECTED_SQUARE', square: index })}
-              onMouseLeave={() => !state.gameEnded && dispatch({ type: 'SET_SELECTED_SQUARE', square: -1 })}
-              disabled={state.gameEnded || !!square}
-              aria-label={`Square ${index + 1}${square ? ` marked with ${square}` : ''}`}
-              role="gridcell"
-            >
-              {square && (
-                <div 
-                  className={`${styles.mark} ${state.winningLine?.includes(index) ? styles.winningMark : ''}`}
-                  data-line={state.winningLine?.includes(index) ? getWinningLineType(state.winningLine) : undefined}
-                >
-                  <Image
-                    src={`/${square === 'X' ? 'cross' : 'zero'}.svg`}
-                    alt={square}
-                    width={120}
-                    height={120}
-                    priority
-                  />
-                </div>
-              )}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {(state.gameStatus === 'won' || state.gameStatus === 'draw') && (
-        <div 
-          className={`${styles.status} ${
-            state.gameStatus === 'won' ? styles.winner : ''
-          } ${state.gameStatus === 'draw' ? styles.draw : ''}`}
-        >
-          {getStatusMessage()}
-        </div>
-      )}
-
-      {state.gameEnded && (
-        <button 
-          className={styles.newGameButton}
-          onClick={() => dispatch({ type: 'START_NEW_GAME' })}
-          aria-label="Start a new game"
-        >
-          Start New Game
-        </button>
-      )}
     </div>
   );
 };
 
-export default GameBoard;
+export default GameBoard; 
