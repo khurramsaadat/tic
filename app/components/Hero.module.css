@@ -99,6 +99,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .card::before {
@@ -182,6 +183,26 @@
   font-size: 1rem;
   color: #FFFFFF;
   opacity: 0.8;
+}
+
+.cardYellow {
+  border: 2px solid #FFD700;
+}
+.cardBlue {
+  border: 2px solid #ff5628;
+}
+.cardGreen {
+  border: 2px solid #ccff54;
+}
+.cardPurple {
+  border: 2px solid #ff3bbb;
+}
+
+.card:hover, .card:active {
+  background: rgba(255, 255, 100, 0.10); /* universal soft yellow tint */
+  transform: scale(1.03);
+  box-shadow: 0 6px 18px rgba(255, 215, 0, 0.15);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 
 @keyframes fadeIn {

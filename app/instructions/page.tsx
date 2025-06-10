@@ -55,7 +55,7 @@ export default function Help() {
         <p>Welcome to Tic Tac Toe! Choose from our different game modes to start playing:</p>
         <ul>
           <li><strong>2 Players</strong> - Classic tic-tac-toe game for two players</li>
-          <li><strong>2 Players+</strong> - Enhanced version with special moves and strategies</li>
+          <li><strong>2 Players Pro</strong> - Enhanced version with special moves and strategies</li>
           <li><strong>Play with System</strong> - Challenge our intelligent system</li>
           <li><strong>AI Learning</strong> - Watch and learn as AI agents evolve</li>
         </ul>
@@ -80,7 +80,7 @@ export default function Help() {
         </div>
 
         <div className={styles.gameMode}>
-          <h3><GiPerspectiveDiceSixFacesRandom className={styles.modeIcon} /> 2 Players+</h3>
+          <h3><GiPerspectiveDiceSixFacesRandom className={styles.modeIcon} /> 2 Players Pro</h3>
           <p>An advanced version that adds a strategic twist to the classic game!</p>
           <div className={styles.marksExample}>
             Limited to 3 marks each: <XMark /> <XMark /> <XMark /> vs <OMark /> <OMark /> <OMark />
@@ -132,7 +132,7 @@ export default function Help() {
           <p>Click the "New Game" button available in each game mode to start fresh.</p>
           
           <h3>Can I customize player names?</h3>
-          <p>Yes! In 2 Players and 2 Players+ modes, you can enter custom names for both players.</p>
+          <p>Yes! In 2 Players and 2 Players Pro modes, you can enter custom names for both players.</p>
           
           <h3>How does the scoring work?</h3>
           <p>Players earn 1 point for each win. Scores are tracked during your session.</p>
@@ -159,7 +159,7 @@ export default function Help() {
           <div className={styles.tip}>
             <MdSwapHoriz className={styles.tipIcon} />
             <h4>Mark Movement</h4>
-            <p>In 2 Players+, plan your mark movements carefully - sometimes moving an old <XMark /> or <OMark /> is better than placing a new one.</p>
+            <p>In 2 Players Pro, plan your mark movements carefully - sometimes moving an old <XMark /> or <OMark /> is better than placing a new one.</p>
           </div>
         </div>
       </section>

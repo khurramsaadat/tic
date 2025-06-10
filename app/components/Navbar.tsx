@@ -79,12 +79,12 @@ const Navbar = () => {
             <span>2 PLAYERS</span>
           </Link>
           <Link 
-            href="/2-players-plus" 
+            href="/2-players-pro" 
             onClick={closeMenu}
-            aria-current={pathname === '/2-players-plus' ? 'page' : undefined}
+            aria-current={pathname === '/2-players-pro' ? 'page' : undefined}
           >
             <GiPerspectiveDiceSixFacesRandom className={styles.navIcon} />
-            <span>2 PLAYERS+</span>
+            <span>2 PLAYERS PRO</span>
           </Link>
           <Link 
             href="/play-with-system" 

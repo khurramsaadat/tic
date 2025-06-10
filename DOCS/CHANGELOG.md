@@ -1,3 +1,4 @@
+# CHANGELOG.md
 # Changelog
 
 All notable changes to this project will be documented in this file.
@@ -641,3 +642,43 @@ tic-tac-toe/
 - Animation uses CSS transforms and keyframes for smooth transitions
 - Supports all winning patterns (horizontal, vertical, diagonal)
 - Maintains consistent styling with other game modes
+
+## [2024-06-09]
+### Changed
+- Renamed all references and routes from '2 Players+' to '2 Players Pro'.
+- Updated navigation (Navbar, Footer, Hero, Instructions, RulesModal) for new label and route.
+- Refactored internal component names for consistency.
+- Updated card accent colors for homepage cards (yellow, orange, green, pink borders).
+- Made entire cards clickable and added universal hover effect.
+- Fixed ARIA accessibility error for card buttons.
+
+### Technical
+- Folder renamed: `app/2-players-plus` → `app/2-players-pro`
+- Cleared and rebuilt .next cache to resolve stale type errors.
+- Ran `npx tsc --noEmit` and `npx next build` to verify no errors.
+
+### Directory Structure
+- /DOCS/PROGRESS.md
+- /DOCS/CHANGELOG.md
+- /DOCS/INPUTS.md
+
+### Commands Used
+- mv (for folder/file renaming)
+- npx tsc --noEmit
+- npx next build
+- mkdir DOCS
+
+### Recurring Issues
+- ARIA error with aria-hidden on focusable element (fixed by removing aria-hidden and tabIndex from card button).
+- Next.js CSS preload warning (non-blocking, can be ignored unless styles are missing).
+
+
+---
+
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+## [Unreleased]
+
+// ... (rest of the root CHANGELOG.md content follows here, starting from line 6) 

@@ -18,7 +18,7 @@ const AdvancedGameBoard = dynamic(() => import('@/app/components/AdvancedGameBoa
   loading: () => <LoadingGameBoard />
 });
 
-export default function TwoPlayersPlusPage() {
+export default function TwoPlayersProPage() {
   const [player1Name, setPlayer1Name] = useState('');
   const [player2Name, setPlayer2Name] = useState('');
   const [gameStarted, setGameStarted] = useState(false);

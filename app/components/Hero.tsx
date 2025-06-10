@@ -28,38 +28,38 @@ export default function Hero() {
         </div>
         <p>Challenge your friends or play against the system</p>
         <div className={styles.cards}>
-          <div className={styles.card}>
+          <Link href="/2-players" className={`${styles.card} ${styles.cardYellow}`}> 
             <h2>2 PLAYERS</h2>
             <p>Challenge your friend in the classic game mode!</p>
-            <Link href="/2-players" className={styles.button}>
+            <div className={styles.button}>
               <FaUserFriends className={styles.buttonIcon} />
               Play Now
-            </Link>
-          </div>
-          <div className={styles.card}>
-            <h2>2 PLAYERS+</h2>
+            </div>
+          </Link>
+          <Link href="/2-players-pro" className={`${styles.card} ${styles.cardBlue}`}> 
+            <h2>2 PLAYERS PRO</h2>
             <p>Try our exciting new mode with only three marks each!</p>
-            <Link href="/2-players-plus" className={styles.button}>
+            <div className={styles.button}>
               <GiPerspectiveDiceSixFacesRandom className={styles.buttonIcon} />
               Play Now
-            </Link>
-          </div>
-          <div className={styles.card}>
+            </div>
+          </Link>
+          <Link href="/play-with-system" className={`${styles.card} ${styles.cardGreen}`}> 
             <h2>PLAY WITH SYSTEM</h2>
             <p>Test your skills against our intelligent system!</p>
-            <Link href="/play-with-system" className={styles.button}>
+            <div className={styles.button}>
               <MdComputer className={styles.buttonIcon} />
               Play Now
-            </Link>
-          </div>
-          <div className={styles.card}>
+            </div>
+          </Link>
+          <Link href="/ai-learning" className={`${styles.card} ${styles.cardPurple}`}> 
             <h2>AI BUDDY</h2>
             <p>Train and evolve with our adaptive AI companion!</p>
-            <Link href="/ai-learning" className={styles.button}>
+            <div className={styles.button}>
               <FaBrain className={styles.buttonIcon} />
               Play Now
-            </Link>
-          </div>
+            </div>
+          </Link>
         </div>
         <div className={styles.features}>
           <div className={styles.feature}>

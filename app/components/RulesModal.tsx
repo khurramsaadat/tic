@@ -100,7 +100,7 @@ const RulesModal: React.FC<RulesModalProps> = ({ isOpen, onClose, autoShow = tru
             <button className={styles.closeButton} onClick={onClose}>×</button>
             
             <h2 className={styles.title}>
-              <div className={styles.titleMain}>2 PLAYERS+</div>
+              <div className={styles.titleMain}>2 PLAYERS PRO</div>
               <div className={styles.titleSub}>RULES</div>
             </h2>
             
